@@ -1,2 +1,2 @@
-from .payment import *
-from .receipt import Receipt
+from model.payment.payment import Payment, Cash, Card, Pix
+from model.payment.receipt import Receipt

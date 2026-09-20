@@ -1,4 +1,4 @@
-from .person import * 
+from model.identity.person import Person, Address, Contact
 
 class Customer(Person):
     def __init__(self, customer_id: str, name: str, address: Address, contact: Contact):
