@@ -15,7 +15,7 @@ class LineItem:
         return self._quantity
 
     def subtotal(self) -> float:
-        return self._product.price * self._quantity
+        return self._product.final_price() * self._quantity
 
     def __str__(self):
         return f"{self._product.name} x {self._quantity} = R$ {self._product.final_price():.2f}"
@@ -37,13 +37,15 @@ class Cart:
         return list(self._items)
 
     def add(self, product: Product, qty: int) -> None:
+        existing = None
         for item in self._items:
             if item.product.sku == product.sku:
-                # TODO: o que fazer aqui?
-                # remover o item antigo e adicionar um novo com qty somada?
-                # ou modificar o item existente?
-                # lembre que LineItem e imutavel... ou deveria ser?
-                pass
+                existing = item
+                break
+        if existing:
+            self._items.remove(existing)
+            qty += existing.quantity
+
         self._items.append(LineItem(product, qty))
 
     def remove(self, sku: str) -> None:
@@ -55,4 +57,3 @@ class Cart:
     def __str__(self):
         lines = "\n".join(f"  {i}" for i in self._items)
         return f"Cart [{self._customer.name}]\n{lines}\n  Total: R$ {self.total():.2f}"
-

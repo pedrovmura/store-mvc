@@ -4,8 +4,8 @@ from model.checkout.cart import Cart
 
 class OrderStatus(Enum):
     PENDING = 1
-    PAID = 1
-    FULFILLED = 1
+    PAID = 2
+    FULFILLED = 3
     
 class Order:
     _TRANSITIONS = {
@@ -23,7 +23,11 @@ class Order:
     @property
     def order_id(self):
         return self._order_id
-    
+
+    @property
+    def customer(self):
+        return self._customer
+
     @property
     def status(self):
         return self._status
