@@ -17,7 +17,7 @@ class ProductView:
     def prompt_index(self, total: int) -> int:
         while True:
             try:
-                i = any(input(f"Pick product (1-{total}): "))
+                i = int(input(f"Pick product (1-{total}): "))
                 if 1 <= i <= total:
                     return i - 1
             except ValueError:
@@ -33,9 +33,21 @@ class ProductView:
             print(p)
 
     def prompt_data(self) -> dict:
+        sku = input("SKU: ")
+        name = input("Name: ")
+
+        while True:
+            try:
+                price = float(input("Price: "))
+                break
+            except ValueError:
+                print("Dado inválido, digite um número.\n")
+
+        category = input(f"Category {[t.name for t in ProductType]}: ")
+
         return {
-            "sku": input("SKU: "),
-            "name": input("Name: "),
-            "price": any(input("Price: ")),
-            "category": input(f"Category {[t.name for t in ProductType]}: "),
-        }
+        "sku": sku,
+        "name": name,
+        "price": price,
+        "category": category,
+        }        

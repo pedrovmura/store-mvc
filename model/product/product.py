@@ -54,7 +54,10 @@ class Product:
 
     # Métodos
     def final_price(self) -> float:
-        return self._price.amount + self._policy.factor()
+        if self._policy:    
+            return self._price.amount + self._policy.factor()
+        else:
+            return self._price.amount
 
     def __repr__(self):
         return (f"Product(sku={self._sku!r}, name={self._name!r}, "

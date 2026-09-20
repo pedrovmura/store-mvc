@@ -3,7 +3,7 @@ from view.product.product_view import ProductView
 
 class ProductController:
     def __init__(self, view: ProductView):
-        self._products: list[Product] = None
+        self._products: list[Product] = []
         self._view = view
 
     def add(self) -> Product:
@@ -14,7 +14,7 @@ class ProductController:
             price = Price(data["price"]),
             category = ProductType[data["category"].upper()],
         )
-        self._products.append(data)
+        self._products.append(product)
         self._view.show(product)
         return product
 
