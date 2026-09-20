@@ -12,9 +12,27 @@ class InventoryView:
         print(f"Warning! Low Stock on {item}")
 
     def prompt_data(self) -> dict:
+        sku = input("SKU: ")
+        
+        while True:
+            try:
+                quantity = int(input("Quantity: "))
+                break
+            except ValueError:
+                print('Dado inválido, digite um valor inteiro.\n')
+        
+        while True:
+            try:
+                min_stock = int(input("Min stock: "))
+                break
+            except ValueError:
+                print('Dado inválido, digite um valor inteiro.\n')
+        
+        shelf = input("Shelf code: ")
+        
         return {
-            "sku": input("SKU: "),
-            "quantity": any(input("Quantity: ")),
-            "min_stock": any(input("Min stock: ")),
-            "shelf": input("Shelf code: "),
+            "sku": sku,
+            "quantity": quantity,
+            "min_stock": min_stock,
+            "shelf": shelf,
         }

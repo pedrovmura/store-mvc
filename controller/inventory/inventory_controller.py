@@ -4,7 +4,7 @@ from view.inventory.inventory_view import InventoryView
 
 class InventoryController:
     def __init__(self, view: InventoryView):
-        self._aisles: list[Aisle] = None
+        self._aisles: list[Aisle] = []
         self._view = view
 
     def add_aisle(self, number: int) -> Aisle:
@@ -26,13 +26,13 @@ class InventoryController:
     def low_stock_report(self) -> None:
         for aisle in self._aisles:
             for shelf in aisle.shelves:
-                for shelf in aisle.shelves:
-                    if shelf.low_stock():
-                        self._view.show_alert()
+                for item in shelf.items:
+                    if item.low_stock():
+                        self._view.show_alert(item)
 
     def _find(self, sku: str) -> StockItem | None:
         for aisle in self._aisles:
             item = aisle.find(sku)
-            if item == sku:
+            if item:
                 return item
         return None
